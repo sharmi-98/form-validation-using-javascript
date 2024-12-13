@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation with DHTML</title>
+
+    <!-- Embedded CSS for styling the form -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin: 10px 0 15px;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+
+        .success {
+            color: green;
+            font-size: 12px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <!-- JavaScript for form validation -->
+    <script>
+        // Function to validate the form
+        function validateForm() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let gender = document.querySelector('input[name="gender"]:checked');
+            let agree = document.getElementById("agree").checked;
+            let nameError = document.getElementById("nameError");
+            let emailError = document.getElementById("emailError");
+            let genderError = document.getElementById("genderError");
+            let agreeError = document.getElementById("agreeError");
+
+            // Clear previous error messages
+            nameError.textContent = '';
+            emailError.textContent = '';
+            genderError.textContent = '';
+            agreeError.textContent = '';
+
+            // Validate Name
+            if (name === "") {
+                nameError.textContent = "Name is required!";
+                return false;
+            }
+
+            // Validate Email
+            let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (email === "") {
+                emailError.textContent = "Email is required!";
+                return false;
+            } else if (!emailPattern.test(email)) {
+                emailError.textContent = "Please enter a valid email address!";
+                return false;
+            }
+
+            // Validate Gender
+            if (!gender) {
+                genderError.textContent = "Please select your gender!";
+                return false;
+            }
+
+            // Validate Agreement checkbox
+            if (!agree) {
+                agreeError.textContent = "You must agree to the terms and conditions!";
+                return false;
+            }
+
+            // If all validations pass
+            alert("Form submitted successfully!");
+            return true; // Proceed with form submission
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Form Structure -->
+    <div class="form-container">
+        <h2>Sign Up Form</h2>
+        <form onsubmit="return validateForm()">
+            
+
+
+<label for="name">Full Name:</label>
+            <input type="text" id="name" name="name">
+            <div id="nameError" class="error"></div>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email">
+            <div id="emailError" class="error"></div>
+
+            <label>Gender:</label>
+            <label for="male">
+                <input type="radio" id="male" name="gender" value="male"> Male
+            </label>
+            <label for="female">
+                <input type="radio" id="female" name="gender" value="female"> Female
+            </label>
+            <div id="genderError" class="error"></div>
+
+            <label for="agree">
+                <input type="checkbox" id="agree" name="agree"> I agree to the terms and conditions.
+            </label>
+            <div id="agreeError" class="error"></div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>
